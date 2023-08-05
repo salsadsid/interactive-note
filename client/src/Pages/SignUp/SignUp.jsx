@@ -14,6 +14,7 @@ const SignUp = () => {
       const handleSignUp=(data)=>{
         console.log(data);
       }
+
     return (
         <section className="w-full flex flex-col items-center justify-center bg-gray-50 sm:px-4">
         <div className="w-full space-y-6 text-gray-600 sm:max-w-md">
@@ -26,7 +27,7 @@ const SignUp = () => {
                 Already have an account?{" "}
                 <Link
                   to="/login"
-                  className="font-medium text-indigo-600 hover:text-indigo-500"
+                  className="font-medium text-green-600 hover:text-indigo-500"
                 >
                   Log in
                 </Link>
