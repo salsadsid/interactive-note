@@ -64,14 +64,14 @@ const Nav = () => {
         <nav className="bg-white border-b">
             <div className="flex items-center space-x-8 py-3 px-4 max-w-screen-xl mx-auto md:px-8">
                 <div className="flex-none lg:flex-initial">
-                    <a href="javascript:void(0)">
+                    <Link to="/">
                         <img
                             src={img}
                             width={120} 
                             height={50}
                             alt="Float UI logo"
                         />
-                    </a>
+                    </Link>
                 </div>
                 <div className="flex-1 flex items-center justify-between">
                     <div className={`bg-white absolute z-20 w-full top-16 left-0 p-4 border-b lg:static lg:block lg:border-none ${menuState ? '' : 'hidden'}`}>
@@ -91,7 +91,8 @@ const Nav = () => {
                         />
                     </div>
                     <div className="flex-1 flex items-center justify-end space-x-2 sm:space-x-6">
-                       <Link>Login</Link>
+                       <Link to='/sign'>Sign Up</Link>
+                       <Link to='/login'>Login</Link>
                         <ProfileDropDown 
                             class="hidden lg:block"
                         />
