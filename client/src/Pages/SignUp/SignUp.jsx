@@ -1,8 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from '../../context/AuthProvider';
 import { toast } from 'react-hot-toast';
+import LoadingSkeleton from '../Shared/LoadingSkeleton';
 
 
 const SignUp = () => {
@@ -13,7 +14,7 @@ const SignUp = () => {
         watch,
         formState: { errors },
       } = useForm();
-      const {createUser,user}=useContext(AuthContext)
+      const {createUser,user,setLoading,setToken,loading}=useContext(AuthContext)
       const handleSignUp=async(data)=>{
         const result = await createUser({ ...data, confirmPassword: undefined });
         if (result.status == "Fail") {
@@ -25,13 +26,21 @@ const SignUp = () => {
           }
         }
         if (result.status == "Success") {
-          console.log(result)
+          setLoading(true)
+          localStorage.setItem('accessToken',result.data.token)    
+          setToken(result.data.token)
         }
         
       };
       
+     useEffect(()=>{
       if(user){
+        setLoading(false)
         navigate("/")
+      }
+     },[user,setLoading,navigate])
+      if(loading){
+        return <LoadingSkeleton></LoadingSkeleton>
       }
     return (
         <section className="w-full flex flex-col items-center justify-center bg-gray-50 sm:px-4">

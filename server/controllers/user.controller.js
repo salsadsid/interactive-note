@@ -6,7 +6,7 @@ exports.signup = async (req, res, next) => {
     try {
       // console.log(req.body);
       const user = await signupService(req.body);
-    //   const token = generateToken(user);
+      const token = generateToken(user);
       const { password: pwd, ...other } = user.toObject();
   
   
@@ -15,7 +15,7 @@ exports.signup = async (req, res, next) => {
         message: "Sign Up Successful",
         data: {
           user: other,
-        //   token,
+          token,
         },
       });
     } catch (error) {
@@ -80,6 +80,7 @@ exports.signup = async (req, res, next) => {
 
 exports.persist = async (req, res, next) => {
     try {
+        console.log(req.user,"auth");
         const user = await findUserByEmail(req.user?.email)
         const { password: pwd, ...other } = user.toObject()
         res.status(200).json({

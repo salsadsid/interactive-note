@@ -2,7 +2,7 @@ import React from "react";
 
 const LoadingSkeleton = () => {
   return (
-    <section className="bg-gray-100 text-gray-800 ">
+    <section className="bg-white text-gray-800 ">
     <div className="flex lg:flex-row flex-col gap-14 justify-center items-center p-6 mx-auto sm:py-12 lg:py-24  max-w-screen-xl">
     <div role="status" class="space-y-2.5 animate-pulse max-w-lg">
       <div class="flex items-center w-full space-x-2">
