@@ -80,7 +80,7 @@ exports.signup = async (req, res, next) => {
 
 exports.persist = async (req, res, next) => {
     try {
-        console.log(req.user,"auth");
+        // console.log(req.user,"auth");
         const user = await findUserByEmail(req.user?.email)
         const { password: pwd, ...other } = user.toObject()
         res.status(200).json({

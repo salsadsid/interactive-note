@@ -36,34 +36,29 @@ const NoteModal = ({ props }) => {
         file.type == "image/png"
       ) {
         formData.append("image", data.file[0]);
-      }else{
+      } else {
         setError({
-            isError: true,
-            message: "Only png, jpeg, webp files are valid.",
-          });
-          return;
+          isError: true,
+          message: "Only png, jpeg, webp files are valid.",
+        });
+        return;
       }
     }
     formData.append("title", data.title);
     formData.append("body", data.body);
     console.log(formData);
-    //   fetch("", {
-    //     method: "POST",
-    //     body: formData,
-    //   })
-    //     .then((res) => res.json())
-    //     .then((data) => {
-    //       if(data.success){
-    //         reset()
-    //         alert("Successfully Added.");
-    //       }
-    //     });
-    // } else {
-    //   setError({
-    //     isError: true,
-    //     message: "Only png, jpeg, webp files are valid.",
-    //   });
-    //   return;
+    fetch("http://localhost:5000/note/add", {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.success) {
+          reset();
+          alert("Successfully Added.");
+        }
+      });
   };
   return (
     <Modal
