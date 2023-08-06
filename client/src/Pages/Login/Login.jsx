@@ -44,7 +44,7 @@ const Login = () => {
                         "Email address must be a valid address",
                     },
                   })}
-                  className={`w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border ${errors.email?.message ? "focus:border-red-500": "focus:border-green-600"} shadow-sm rounded-l`}
+                  className={`w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border ${errors.email?.message ? "focus:border-red-500": "focus:border-green-600"} shadow-sm rounded-lg`}
                 />
                 {errors.email?.message && <small className="text-orange-700">{errors.email.message}</small>}
                 

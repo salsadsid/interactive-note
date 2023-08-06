@@ -21,7 +21,7 @@ exports.signup = async (req, res, next) => {
         console.log(error);
       res.status(500).json({
               status: "Fail",
-              error:error.message,
+              error,
           })
     }
   };

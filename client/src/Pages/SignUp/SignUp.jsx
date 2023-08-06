@@ -1,20 +1,38 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from '../../context/AuthProvider';
+import { toast } from 'react-hot-toast';
 
 
 const SignUp = () => {
+  const navigate=useNavigate()
     const {
         register,
         handleSubmit,
         watch,
         formState: { errors },
       } = useForm();
-
-      const handleSignUp=(data)=>{
-        console.log(data);
+      const {createUser,user}=useContext(AuthContext)
+      const handleSignUp=async(data)=>{
+        const result = await createUser({ ...data, confirmPassword: undefined });
+        if (result.status == "Fail") {
+          console.log(result);
+          if (result.error.keyPattern.email) {
+            toast.error("User Already Exist!", { id: "User" });
+          } else {
+            toast.error("User Already Exist!", { id: "User" });
+          }
+        }
+        if (result.status == "Success") {
+          console.log(result)
+        }
+        
+      };
+      
+      if(user){
+        navigate("/")
       }
-
     return (
         <section className="w-full flex flex-col items-center justify-center bg-gray-50 sm:px-4">
         <div className="w-full space-y-6 text-gray-600 sm:max-w-md">
@@ -47,7 +65,7 @@ const SignUp = () => {
                   className={`w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border ${
                     errors.fullName?.type === "required"
                       ? "focus:border-red-500"
-                      : "focus:border-indigo-600"
+                      : "focus:border-green-600"
                   } shadow-sm rounded-lg`}
                 />
                 {errors.fullName?.type === "required" && (
@@ -71,7 +89,7 @@ const SignUp = () => {
                   className={`w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border ${
                     errors.email?.message
                       ? "focus:border-red-500"
-                      : "focus:border-indigo-600"
+                      : "focus:border-green-600"
                   } shadow-sm rounded-lg`}
                 />
                 {errors.email?.message && (
@@ -94,7 +112,7 @@ const SignUp = () => {
                         "Password must have at least 1 letter and number.",
                     },
                   })}
-                  className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+                  className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-green-600 shadow-sm rounded-lg"
                 />
                 {errors.password?.message && (
                   <small className="text-orange-700">
@@ -113,7 +131,7 @@ const SignUp = () => {
                         watch("password") === v || "Password doesn't match.",
                     },
                   })}
-                  className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+                  className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-green-600 shadow-sm rounded-lg"
                 />
                 {errors.confirmPassword?.message && (
                   <small className="text-orange-700">
