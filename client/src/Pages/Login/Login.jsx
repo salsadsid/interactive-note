@@ -1,25 +1,38 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider';
 import { toast } from 'react-hot-toast';
+import LoadingSkeleton from '../Shared/LoadingSkeleton';
 
 const Login = () => {
+  const navigate=useNavigate()
     const {
         register,
         handleSubmit,
         formState: { errors },
       } = useForm();
-      const {loginUser}=useContext(AuthContext)
+      const {loginUser,setLoading,setToken,user,loading}=useContext(AuthContext)
     const handleLogin=async(data)=>{
       const result=await loginUser(data)
       if(result.status=="Fail"){
           toast.error(result.message,{id:"User"})
       }
       if(result.status=="Success"){
-       console.log(result)
+        setLoading(true)
+        localStorage.setItem('accessToken',result.data.token)    
+        setToken(result.data.token)
       }
     }
+    useEffect(()=>{
+      if(user){
+        setLoading(false)
+        navigate("/")
+      }
+     },[user,setLoading,navigate])
+      if(loading){
+        return <LoadingSkeleton></LoadingSkeleton>
+      }
     return (
         <section className="relative w-full flex flex-col items-center justify-center bg-white px-4">
         <div className="max-w-sm w-full text-gray-600">

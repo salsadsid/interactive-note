@@ -17,6 +17,7 @@ const useToken = (token) => {
       if(data){
      setUserInfo(data.user)
       }
+
     })
         }
     },[token])
