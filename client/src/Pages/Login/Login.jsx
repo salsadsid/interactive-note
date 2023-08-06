@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthProvider';
+import { toast } from 'react-hot-toast';
 
 const Login = () => {
     const {
@@ -8,9 +10,15 @@ const Login = () => {
         handleSubmit,
         formState: { errors },
       } = useForm();
-
-    const handleLogin=(data)=>{
-        console.log(data)
+      const {loginUser}=useContext(AuthContext)
+    const handleLogin=async(data)=>{
+      const result=await loginUser(data)
+      if(result.status=="Fail"){
+          toast.error(result.message,{id:"User"})
+      }
+      if(result.status=="Success"){
+       console.log(result)
+      }
     }
     return (
         <section className="relative w-full flex flex-col items-center justify-center bg-white px-4">

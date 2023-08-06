@@ -1,4 +1,5 @@
-const { signupService } = require("../services/user.service");
+const { signupService, findUserByEmail } = require("../services/user.service");
+const { generateToken } = require("../utils/token");
 
 
 exports.signup = async (req, res, next) => {
@@ -70,6 +71,23 @@ exports.signup = async (req, res, next) => {
         })
     } catch (error) {
         return res.status(500).json({
+            status: "Fail",
+            error,
+        })
+    }
+}
+
+
+exports.persist = async (req, res, next) => {
+    try {
+        const user = await findUserByEmail(req.user?.email)
+        const { password: pwd, ...other } = user.toObject()
+        res.status(200).json({
+            status: "Success",
+            user: other
+        })
+    } catch (error) {
+        res.status(500).json({
             status: "Fail",
             error,
         })
