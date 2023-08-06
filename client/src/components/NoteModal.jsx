@@ -3,6 +3,7 @@ import { Button, Modal } from "flowbite-react";
 import { useForm } from "react-hook-form";
 
 const NoteModal = ({ props }) => {
+    // console.log(props.user,"Dsd")
   const {
     register,
     handleSubmit,
@@ -14,7 +15,7 @@ const NoteModal = ({ props }) => {
     message: "",
   });
   const onSubmit = (data) => {
-    // console.log(data);
+    console.log(data);
     setError({
       isError: false,
       message: "",
@@ -46,6 +47,9 @@ const NoteModal = ({ props }) => {
     }
     formData.append("title", data.title);
     formData.append("body", data.body);
+    formData.append("category", data.category);
+    formData.append("fullName", props.user?.fullName);
+    formData.append("email", props.user?.email);
     console.log(formData);
     fetch("http://localhost:5000/note/add", {
       method: "POST",
@@ -69,6 +73,29 @@ const NoteModal = ({ props }) => {
       <Modal.Body>
         <div className="space-y-6">
           <form onSubmit={handleSubmit(onSubmit)}>
+            <div>
+            <label className=" font-medium " htmlFor="role">
+                Category
+              </label>
+              <select
+                name="role"
+                id="role"
+                {...register("category", {
+                  required: "Role is Required",
+                })}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mt-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option value="home">Home</option>
+                <option value="office">Office</option>
+                <option value="personal">Personal</option>
+                <option value="others">Others</option>
+              </select>
+              {errors.role?.message && (
+                <small className="text-orange-700">
+                  {errors.role.message}
+                </small>
+              )}
+            </div>
             <div class="mb-6">
               <label
                 for="default-input"

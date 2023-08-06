@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import NoteCard from "../../components/NoteCard";
 import NoteModal from "../../components/NoteModal";
 import { Button } from "flowbite-react";
+import { AuthContext } from "../../context/AuthProvider";
 
 const Dashboard = () => {
     const [openModal, setOpenModal] = useState("");
-  const props = { openModal, setOpenModal };
-
+    const {user}=useContext(AuthContext)
+  const props = { openModal, setOpenModal,user };
   return (
     <div className="space-x-8 space-y-8 mt-12 py-3 px-4 max-w-screen-xl mx-auto md:px-8">
       <div className="max-w-lg mx-auto">

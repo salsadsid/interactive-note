@@ -23,8 +23,8 @@ const noteSchema = mongoose.Schema(
     },
     category: {
       type: String,
-      enum: ["home", "office", "personal","other"],
-      default: "other",
+      enum: ["home", "office", "personal","others"],
+      default: "others",
       required: [true, "Category is required"],
     },
     title:{
