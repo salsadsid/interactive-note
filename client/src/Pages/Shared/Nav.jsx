@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import img from "../../assets/logo2.png";
 import { AuthContext } from "../../context/AuthProvider";
+import avatar from '../../assets/avatar.png'
+
 const ProfileDropDown = (props) => {
   const [state, setState] = useState(false);
   const profileRef = useRef();
@@ -22,7 +24,7 @@ const ProfileDropDown = (props) => {
           onClick={() => setState(!state)}
         >
           <img
-            src="https://randomuser.me/api/portraits/men/46.jpg"
+            src={avatar}
             className="w-full h-full rounded-full"
           />
         </button>
@@ -37,7 +39,7 @@ const ProfileDropDown = (props) => {
         }`}
       >
         <li>
-          <Link className="block text-gray-600 lg:hover:bg-gray-50 lg:p-2.5">
+          <Link to="/dashboard" className="block text-gray-600 lg:hover:bg-gray-50 lg:p-2.5">
             Dashboard
           </Link>
         </li>
